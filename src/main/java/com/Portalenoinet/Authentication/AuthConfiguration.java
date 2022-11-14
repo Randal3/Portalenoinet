@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class AuthConfiguration extends WebSecurityConfigurerAdapter { v sv
+public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
 	/**
      * The datasource is automatically injected into the AuthConfiguration (using its getters and setters)
