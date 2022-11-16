@@ -26,5 +26,9 @@ public class Utente {
 	
 	@Column
 	private String numero;
+
+	public String Getfullname(){
+		return this.nome + " " + this.cognome;
+	}
 }
 

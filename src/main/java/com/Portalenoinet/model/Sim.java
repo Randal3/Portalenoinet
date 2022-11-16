@@ -24,4 +24,6 @@ public class Sim {
 
     @Column(nullable = false)
 	private String dettagli;
+
+	
 }
