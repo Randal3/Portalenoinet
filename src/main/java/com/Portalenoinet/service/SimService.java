@@ -21,4 +21,9 @@ public class SimService {
         return sim.orElse(null);
     }
 
+    @Transactional
+    public Iterable<Sim> all() {
+        return this.simRepository.findAll();
+    }
+
 }

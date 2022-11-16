@@ -29,4 +29,8 @@ public class CredentialsService {
         return result.orElse(null);
     }
 
+    @Transactional
+    public Credentials save(Credentials credentials) {
+        return this.credentialsRepository.save(credentials);
+    }
 }
