@@ -38,6 +38,15 @@ public class PageController {
         return "dashboard";
     }
 
+
+    @RequestMapping(value = "/copertura", method = RequestMethod.GET)
+    public String Copertura(Model model) {
+        
+        return "copertura";
+    }
+
+
+    /*
     @RequestMapping(value = "/newUser", method = RequestMethod.GET)
     public String NewUser(Model model) {
         Utente u = new Utente();
@@ -51,4 +60,5 @@ public class PageController {
         this.credentialservice.save(c);
         return "dashboard";
     }
+    */
 }
