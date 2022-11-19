@@ -15,7 +15,16 @@ function VerificaCopertura() {
        
         success: function (data) {
         console.log("SUCCESS : ", data);
-
+            if(data.retCode == 0){
+                //if(data.Coverage == 0){
+                    document.getElementById("coperto").style.display="block";
+                //}else{
+                //    document.getElementById("nonCoperto").style.display="block";
+                //}
+            }else{
+                document.getElementById("errore").style.display="block";
+                document.getElementById("erroreMsg").innerHTML=data.retMsg;
+            }
         },
         error: function (e) {
         alert("Error!");

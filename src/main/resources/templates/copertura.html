@@ -3,7 +3,7 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="../js/copertura.js"></script>
+    <script type="module" src="../js/copertura.js"></script>
 </head>
 
 <body>
@@ -40,11 +40,11 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="latitudine"
-                                            placeholder="Latitudine">
+                                            placeholder="Latitudine" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="longitudine"
-                                            placeholder="Longitudine">
+                                            placeholder="Longitudine" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block w-25">
@@ -52,6 +52,27 @@
                                 </button>
                             </form>
                             <hr>
+
+                            <div style="display: none;" id="coperto"> 
+                                <h3>IL SITO E' COPERTO</h3>
+                                
+                                    <div class="form-group">
+                                        <label for="CovType">TIPO DI COPERTURA</label>
+                                        <input class="form-control" style="font-size: 0.8rem;border-radius: 10rem;  padding: 1.5rem 1rem;" id="CovType" 
+                                            placeholder="ID PROVIDER" readonly>
+                                    </div>
+                                    <div class="form-group user">
+                                        <label for="AreaCode">TIPO DI COPERTURA</label>
+                                        <input class="form-control" style="font-size: 0.8rem;border-radius: 10rem;  padding: 1.5rem 1rem;" id="AreaCode"
+                                            placeholder="ID PROVIDER" readonly>
+                                    </div>
+
+                            </div>
+                            <div style="display: none;" id="errore"> 
+                                <p id="erroreMsg"></p>
+                            </div>
+
+                        
                         </div>
                         </h1>
                     </div>
