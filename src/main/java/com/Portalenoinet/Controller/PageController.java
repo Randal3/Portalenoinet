@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.Portalenoinet.model.*;
 import com.Portalenoinet.service.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @Controller
 public class PageController {
@@ -35,7 +31,7 @@ public class PageController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
 		Utente user = credentials.getUser();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         model.addAttribute("Sim",this.simservice.all());
         model.addAttribute("role",credentials.getRole());
         return "dashboard";
@@ -43,7 +39,7 @@ public class PageController {
 
 
     @GetMapping(value="/copertura")
-    public String Copertura(Model model) {
+    public String Copertura() {
         return "copertura";
     }
     
