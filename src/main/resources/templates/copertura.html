@@ -35,14 +35,39 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <div th:replace="fragments/BarraUtente.html:: utente"></div>  
+                <div th:replace="fragments/BarraUtente.html:: utente"></div>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> FORM COPERTURA
+                    <div class="align-items-center justify-content-between mb-4">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Servizio di verifica copertura</h1>
+                            </div>
+                            <hr>
+                            <form class="user">
+                                <div class="form-group w-25">
+                                    <input class="form-control form-control-user" id="exampleID"
+                                        placeholder="ID PROVIDER" readonly>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="latitudine"
+                                            placeholder="Latitudine">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="longitudine"
+                                            placeholder="Longitudine">
+                                    </div>
+                                </div>
+                                <a href="" class="btn btn-primary btn-user btn-block w-25">
+                                    Verifica
+                                </a>
+                            </form>
+                            <hr>
+                        </div>
                         </h1>
                     </div>
                 </div>

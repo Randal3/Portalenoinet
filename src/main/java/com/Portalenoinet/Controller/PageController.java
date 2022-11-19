@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Portalenoinet.model.*;
 import com.Portalenoinet.service.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -39,12 +42,12 @@ public class PageController {
     }
 
 
-    @RequestMapping(value = "/copertura", method = RequestMethod.GET)
+    @GetMapping(value="/copertura")
     public String Copertura(Model model) {
-        
         return "copertura";
     }
-
+    
+    
 
     /*
     @RequestMapping(value = "/newUser", method = RequestMethod.GET)
