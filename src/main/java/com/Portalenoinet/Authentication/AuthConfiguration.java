@@ -61,7 +61,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/index")        
                 .invalidateHttpSession(true)
-                .clearAuthentication(true).permitAll();
+                .clearAuthentication(true).permitAll().and().csrf().disable();;
     }
 
     @Override

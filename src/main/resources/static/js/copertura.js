@@ -12,7 +12,7 @@ function VerificaCopertura() {
         contentType: "application/json",
         url: "/SimService",
         data: JSON.stringify(formCopertura),
-        dataType: "json",
+       
         success: function (data) {
         console.log("SUCCESS : ", data);
 
@@ -20,7 +20,7 @@ function VerificaCopertura() {
         error: function (e) {
         alert("Error!");
         console.log("ERROR: ", e);
-        },
+        }
     });
 }
 
