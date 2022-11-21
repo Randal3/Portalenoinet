@@ -8,13 +8,13 @@
 
 <body>
     <!-- Page Wrapper -->
-    <div id="wrapper" class="justify-content-center" style="margin: 30px;">
+    <div id="wrapper">
 
         <!-- side-Navbar -->
         <div th:replace="fragments/Side-Navbar.html:: sidebar"></div>
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column" style="border-radius: 0px 25px 25px 0px;">
+        <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
@@ -27,7 +27,7 @@
 
                     <!-- Page Heading -->
                     <div class="align-items-center justify-content-between mb-4">
-                        <div class="p-5">
+                        <div class="p-5" id="formIniziale">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Servizio di verifica copertura</h1>
                             </div>
@@ -52,9 +52,10 @@
                                 </button>
                             </form>
                             <hr>
-
+                        </div>
+                        <div class="p-5">
                             <div style="display: none;" id="coperto"> 
-                                <h3>IL SITO E' COPERTO</h3>
+                                <h3 style="padding : 30px 0 30px 0">IL SITO É COPERTO</h3>
                                 
                                     <div class="form-group">
                                         <label for="CovType">TIPO DI COPERTURA</label>
@@ -66,6 +67,11 @@
                                         <input class="form-control" style="font-size: 0.8rem;border-radius: 10rem;  padding: 1.5rem 1rem;" id="AreaCode"
                                             placeholder="ID PROVIDER" readonly>
                                     </div>
+                                        <a id="pulsanteAttivazione" class="btn btn-primary btn-block w-25" style="font-size: 0.8rem; 
+                                            border-radius: 10rem; 
+                                            padding: 0.75rem 1rem;">
+                                            Richiedi Attivazione
+                                        </a>
 
                             </div>
                             <div style="display: none;" id="errore"> 

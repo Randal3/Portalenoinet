@@ -1,5 +1,6 @@
 package com.Portalenoinet.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -22,8 +23,11 @@ public class SimService {
     }
 
     @Transactional
-    public Iterable<Sim> all() {
+    public List<Sim> all() {
         return this.simRepository.findAll();
     }
 
+    public void save(Sim nuovaSim) {
+        this.simRepository.save(nuovaSim);
+    }
 }

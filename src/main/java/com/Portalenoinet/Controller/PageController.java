@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.Portalenoinet.model.*;
 import com.Portalenoinet.service.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class PageController {
@@ -42,10 +43,24 @@ public class PageController {
     public String Copertura() {
         return "copertura";
     }
-    
-    
 
-    /*
+    @GetMapping(value="/gestioneSim")
+    public String gestioneSim() {
+        return "gestioneSim";
+    }
+
+    @RequestMapping(value =  "/gestioneSim/{areaCode}" , method = RequestMethod.GET)
+     public String gestioneSim(@PathVariable("areaCode") String id, Model model) {
+        model.addAttribute("id", id);
+        return "gestioneSim";
+     }
+
+    @GetMapping(value="/tableSim")
+    public String tableSim() {
+        return "tableSim";
+    }
+    
+    
     @RequestMapping(value = "/newUser", method = RequestMethod.GET)
     public String NewUser(Model model) {
         Utente u = new Utente();
@@ -54,10 +69,9 @@ public class PageController {
         Credentials c = new Credentials();
         c.setRole("ADMIN");
         c.setUser(u);
-        c.setUsername("Admin1234");
-        c.setPassword(this.passwordEncoder.encode("123456"));
+        c.setUsername("Admin");
+        c.setPassword(this.passwordEncoder.encode("admin"));
         this.credentialservice.save(c);
         return "dashboard";
     }
-    */
 }

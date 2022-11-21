@@ -17,7 +17,9 @@ function VerificaCopertura() {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
                 //if(data.Coverage == 0){
+                    document.getElementById("formIniziale").style.display="none";
                     document.getElementById("coperto").style.display="block";
+                    document.getElementById("pulsanteAttivazione").setAttribute("href","/gestioneSim/"+data.AreaCode);
                 //}else{
                 //    document.getElementById("nonCoperto").style.display="block";
                 //}

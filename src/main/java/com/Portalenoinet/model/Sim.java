@@ -17,13 +17,23 @@ public class Sim {
 	private String Seriale;
 
 	@Column(nullable = false)
+	private String idRecord;
+
+	@Column
 	private Date data;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Utente operatore;
 
     @Column(nullable = false)
-	private String dettagli;
+	private String stato;
 
-	
+	@Column(nullable = false)
+	private String tipoServizio;
+
+	@Column(nullable = false)
+	private String areaCode;
+
+	@Column
+	private String dettagli;
 }

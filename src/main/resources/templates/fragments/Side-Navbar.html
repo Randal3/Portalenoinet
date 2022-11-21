@@ -20,8 +20,7 @@
     
     </head>
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
-        style="border-radius: 25px 0px 0px 25px; min-height: 93vh !important;">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -36,8 +35,8 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" th:href="@{dashboard}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+            <a class="nav-link" th:href="@{/dashboard}">
+                <i class="fa fa-home"></i>
                 <span>Dashboard</span></a>
         </li>
 
@@ -46,16 +45,16 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" th:href="@{copertura}">
+            <a class="nav-link" th:href="@{/copertura}">
                 <i class="fa-solid fa-mountain-sun"></i>
                 <span>Copertura</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" th:href="@{/gestioneSim}">
                 <i class="fas fa-fw fa-table"></i>
-                <span>ADD/Remove SIM</span></a>
+                <span>Gestione SIM</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
