@@ -1,5 +1,6 @@
 package com.Portalenoinet.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class UtenteService {
     public Utente getUtente(long id) {
 		Optional<Utente> utente = this.utenteRepository.findById(id);
         return utente.orElse(null);
+    }
+
+    public List<Utente> all() {
+        return this.utenteRepository.findAll();
     }
 
 }

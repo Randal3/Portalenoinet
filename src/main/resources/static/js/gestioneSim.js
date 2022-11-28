@@ -3,6 +3,8 @@
 document.getElementById("attivazione").onclick = function() {
 
     document.getElementById("codiciAttivazione").style.display="block";
+    document.getElementById("areaCode").required = true;
+    document.getElementById("tipoServizio").required = true;
 };
 
 document.getElementById("sospensione").onclick = function() {

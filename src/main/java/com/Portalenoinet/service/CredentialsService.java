@@ -34,6 +34,14 @@ public class CredentialsService {
         return this.credentialsRepository.save(credentials);
     }
 
+    @Transactional
+    public Credentials saveCredentials(Credentials credentials) {
+       //credentials.setRole(Credentials.ADMIN_ROLE);
+       credentials.setRole(Credentials.DEFAULT_ROLE);
+       credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
+       return this.credentialsRepository.save(credentials);
+    }
+
     
 
 

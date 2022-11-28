@@ -1,7 +1,6 @@
 package com.Portalenoinet.Controller;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import com.Portalenoinet.model.Sim;
 import com.Portalenoinet.model.Utente;
 import com.Portalenoinet.service.CredentialsService;
 import com.Portalenoinet.service.SimService;
+import com.Portalenoinet.service.UtenteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -31,6 +31,10 @@ public class provaController {
 
     @Autowired
     private SimService simservice;
+
+    @Autowired
+    private UtenteService utenteservice;
+
     @PostMapping("/SimService")
     public ObjectNode simService(@RequestBody ObjectNode node) {
 
@@ -59,16 +63,24 @@ public class provaController {
       nuovaSim.setAreaCode(node.get("AreaCode").asText());
       nuovaSim.setAreaCode(node.get("AreaCode").asText());
       nuovaSim.setOperatore(user);
-      //nuovaSim.setData(new Date());
+      nuovaSim.setData(LocalDate.now());
 
       simservice.save(nuovaSim);
     }
 
     @GetMapping("/getAllSim")
     public List<Sim> getAllSim() {
-
+      
       List<Sim> data = simservice.all();
 
       return data;
+    }
+
+    @GetMapping("/getAllOperatori")
+    public List<Utente> getAllOperatori() {
+
+      List<Utente> utente = utenteservice.all();
+      
+      return utente;
     }
 }

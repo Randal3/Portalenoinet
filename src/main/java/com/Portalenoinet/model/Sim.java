@@ -1,8 +1,6 @@
 package com.Portalenoinet.model;
+import java.time.LocalDate;
 
-import java.sql.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,18 +18,18 @@ public class Sim {
 	private String idRecord;
 
 	@Column
-	private Date data;
+	private LocalDate data;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Utente operatore;
 
     @Column(nullable = false)
 	private String stato;
 
-	@Column(nullable = false)
+	@Column
 	private String tipoServizio;
 
-	@Column(nullable = false)
+	@Column
 	private String areaCode;
 
 	@Column
