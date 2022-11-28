@@ -14,7 +14,6 @@ $(document).ready(function () {
                     { data: 'areaCode' },
                     { data: 'data' },
                     { data: 'stato', render: function (data) { 
-                        console.log("STATO: ", data);
                         if(data==2) return '<i class="fa-solid fa-circle" style=" color: rgb(0, 255, 0);"></i>'
                         if(data == 20) return '<i class="fa-solid fa-circle" style=" color: #fbff00;"></i>' 
                         if(data == 3) return '<i class="fa-solid fa-circle" style=" color: rgb(255, 0, 0);"></i>'

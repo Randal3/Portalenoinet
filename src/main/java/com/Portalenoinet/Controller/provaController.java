@@ -55,17 +55,36 @@ public class provaController {
       Utente user = credentials.getUser();
 
 
-      Sim nuovaSim = new Sim();
-      nuovaSim.setSeriale(node.get("IdSim").asText());
-      nuovaSim.setTipoServizio(node.get("SrvType").asText());
-      nuovaSim.setIdRecord(node.get("IdRecord").asText());
-      nuovaSim.setStato(node.get("State").asText());
-      nuovaSim.setAreaCode(node.get("AreaCode").asText());
-      nuovaSim.setAreaCode(node.get("AreaCode").asText());
-      nuovaSim.setOperatore(user);
-      nuovaSim.setData(LocalDate.now());
+      List<Sim> elencoSim = simservice.all();
+      String seriale = node.get("IdSim").asText();
+      boolean tmp = false;
+      for(int i=0; i<elencoSim.size();i++){
+          if( elencoSim.get(i).getSeriale().equals(seriale)){
+            tmp = true;
+          }
+      }
 
-      simservice.save(nuovaSim);
+      if(tmp){
+        //UPDATE SIM
+        Sim simAttuale = simservice.getSim(seriale);
+
+        simAttuale.setStato(node.get("State").asText());
+
+        simservice.save(simAttuale);
+      }else{
+        //INSERIMENTO NUOVA SIM
+        Sim nuovaSim = new Sim();
+        nuovaSim.setSeriale(node.get("IdSim").asText());
+        nuovaSim.setTipoServizio(node.get("SrvType").asText());
+        nuovaSim.setIdRecord(node.get("IdRecord").asText());
+        nuovaSim.setStato(node.get("State").asText());
+        nuovaSim.setAreaCode(node.get("AreaCode").asText());
+        nuovaSim.setAreaCode(node.get("AreaCode").asText());
+        nuovaSim.setOperatore(user);
+        nuovaSim.setData(LocalDate.now());
+
+        simservice.save(nuovaSim);
+      }
     }
 
     @GetMapping("/getAllSim")

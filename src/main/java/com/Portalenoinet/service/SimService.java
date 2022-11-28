@@ -17,8 +17,8 @@ public class SimService {
     protected SimRepository simRepository;
 
     @Transactional
-    public Sim getSim(long id) {
-		Optional<Sim> sim = this.simRepository.findById(id);
+    public Sim getSim(String seriale) {
+		Optional<Sim> sim = this.simRepository.findBySeriale(seriale);
         return sim.orElse(null);
     }
 
