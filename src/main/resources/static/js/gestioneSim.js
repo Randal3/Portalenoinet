@@ -34,6 +34,7 @@ function salvataggioSim() {
 
         success: function (data) {
         console.log("SUCCESS : ", data);
+        window.location.href = '/dashboard';
         },
         error: function (e) {
         alert("Error!");
