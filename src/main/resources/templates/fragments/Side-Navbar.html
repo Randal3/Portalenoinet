@@ -34,7 +34,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" th:href="@{/dashboard}">
                 <i class="fa fa-home"></i>
                 <span>Dashboard</span></a>
@@ -51,10 +51,19 @@
         </li>
 
         <!-- Nav Item - Gestione SIM -->
+
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/gestioneSim}">
+            <a class="nav-link collapsed" id="dropdown" data-toggle="collapse">
                 <i class="fa-solid fa-pen-to-square"></i>
-                <span>Gestione SIM</span></a>
+                <span>Gestione Sim</span>
+            </a>
+            <div id="collapseTwo" class="collapse" >
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Funzioni disponibili :</h6>
+                    <a class="collapse-item" th:href="@{/infoSim}">Informazioni Sim</a>
+                    <a class="collapse-item" th:href="@{/gestioneSim}">Gestione Sim</a>
+                </div>
+            </div>
         </li>
 
         <!-- Nav Item - Servizi -->
@@ -73,6 +82,20 @@
 
     </ul>
     <!-- End of Sidebar -->
+
+
+    <script>
+        document.getElementById("dropdown").onclick = function() {
+            if ( !document.getElementById("dropdown").classList.contains('collapsed') ){
+                document.getElementById("collapseTwo").classList.remove('show');
+                document.getElementById("dropdown").classList.add('collapsed');
+            }else{
+                document.getElementById("collapseTwo").classList.add('show');
+                document.getElementById("dropdown").classList.remove('collapsed');
+            }
+        };
+
+    </script>
 </div>
 
 </html>

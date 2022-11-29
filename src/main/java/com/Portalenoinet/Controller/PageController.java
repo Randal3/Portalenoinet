@@ -37,11 +37,7 @@ public class PageController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String defaultAfterLogin(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-		Utente user = credentials.getUser();
-        model.addAttribute("user", user);
-        System.out.println("SONO QUI " + user.getCognome());
+        infoCognomeUtente(model);
         return "dashboard";
     }
 
@@ -52,19 +48,13 @@ public class PageController {
 
     @GetMapping(value="/copertura")
     public String copertura(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-		Utente user = credentials.getUser();
-        model.addAttribute("user", user);
+        infoCognomeUtente(model);
         return "copertura";
     }
 
     @GetMapping(value="/gestioneSim")
     public String gestioneSim(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-		Utente user = credentials.getUser();
-        model.addAttribute("user", user);
+        infoCognomeUtente(model);
         return "gestioneSim";
     }
 
@@ -76,20 +66,13 @@ public class PageController {
 
     @GetMapping(value="/tableSim")
     public String tableSim(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-		Utente user = credentials.getUser();
-        model.addAttribute("user", user);
+        infoCognomeUtente(model);
         return "tableSim";
     }
     
     @GetMapping(value="/gestioneOperatori")
     public String gestioneOperatori(Model model) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-		Utente user = credentials.getUser();
-        model.addAttribute("user", user);
-
+        infoCognomeUtente(model);
 
         Utente utente = new Utente();
 		Credentials credenziali = new Credentials();
@@ -101,10 +84,7 @@ public class PageController {
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("utente") Utente utente, BindingResult userBindingResult, @ModelAttribute("credentials") Credentials credenziali, BindingResult credentialsBindingResult, Model model) {
     
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-            Utente user = credentials.getUser();
-            model.addAttribute("user", user);
+            infoCognomeUtente(model);
 
             this.userValidator.validate(utente, userBindingResult);
             this.credentialsValidator.validate(credenziali, credentialsBindingResult);
@@ -114,6 +94,19 @@ public class PageController {
                 return "dashboard";
             }
             return "gestioneOperatori";
+    }
+
+    @GetMapping(value="/infoSim")
+    public String infoSim(Model model) {
+        infoCognomeUtente(model);
+        return "infoSim";
+    }
+
+    private void infoCognomeUtente(Model model){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
+		Utente user = credentials.getUser();
+        model.addAttribute("user", user);
     }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.GET)
