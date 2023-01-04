@@ -69,7 +69,7 @@ public class PageController {
         return "tableSim";
     }
 
-    @GetMapping(value = "/gestioneOperatori")
+    @GetMapping(value = "/admin/gestioneOperatori")
     public String gestioneOperatori(Model model) {
         infoCognomeUtente(model);
 
@@ -77,10 +77,10 @@ public class PageController {
         Credentials credenziali = new Credentials();
         model.addAttribute("utente", utente);
         model.addAttribute("credentials", credenziali);
-        return "gestioneOperatori";
+        return "admin/gestioneOperatori";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("utente") Utente utente, BindingResult userBindingResult,
             @ModelAttribute("credentials") Credentials credenziali, BindingResult credentialsBindingResult,
             Model model) {
@@ -94,7 +94,7 @@ public class PageController {
             credentialservice.saveCredentials(credenziali);
             return "dashboard";
         }
-        return "gestioneOperatori";
+        return "admin/gestioneOperatori";
     }
 
     @GetMapping(value = "/infoSim")
@@ -107,20 +107,28 @@ public class PageController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
         Utente user = credentials.getUser();
+
+        if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+            model.addAttribute("ROLE", "ADMIN");
+        } else {
+            model.addAttribute("ROLE", "DEAFULT");
+        }
         model.addAttribute("user", user);
     }
 
-    @RequestMapping(value = "/newUser", method = RequestMethod.GET)
-    public String NewUser(Model model) {
-        Utente u = new Utente();
-        u.setCognome("Admin");
-        u.setNome("user");
-        Credentials c = new Credentials();
-        c.setRole("ADMIN");
-        c.setUser(u);
-        c.setUsername("Admin");
-        c.setPassword(this.passwordEncoder.encode("admin"));
-        this.credentialservice.save(c);
-        return "dashboard";
-    }
+    /*
+     * @RequestMapping(value = "/newUser", method = RequestMethod.GET)
+     * public String NewUser(Model model) {
+     * Utente u = new Utente();
+     * u.setCognome("Admin");
+     * u.setNome("user");
+     * Credentials c = new Credentials();
+     * c.setRole("ADMIN");
+     * c.setUser(u);
+     * c.setUsername("Admin");
+     * c.setPassword(this.passwordEncoder.encode("admin"));
+     * this.credentialservice.save(c);
+     * return "dashboard";
+     * }
+     */
 }
