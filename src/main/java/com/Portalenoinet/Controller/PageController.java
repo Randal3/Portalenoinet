@@ -59,6 +59,7 @@ public class PageController {
 
     @RequestMapping(value = "/gestioneSim/{areaCode}", method = RequestMethod.GET)
     public String gestioneSim(@PathVariable("areaCode") String id, Model model) {
+        infoCognomeUtente(model);
         model.addAttribute("id", id);
         return "gestioneSim";
     }
