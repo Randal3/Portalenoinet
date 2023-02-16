@@ -9,7 +9,7 @@ function informazioniSim() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/SimService",
+        url: "http://95.174.12.104:10674/SimService/Inquiry",
         data: JSON.stringify(informazioniSim),
         //dataType: "json",
         success: function (data) {

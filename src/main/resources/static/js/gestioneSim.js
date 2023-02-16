@@ -29,7 +29,7 @@ function salvataggioSim() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/salvataggioSim",
+        url: "http://95.174.12.104:10674/SimService/Inquiry",
         data: JSON.stringify(gestioneSim),
 
         success: function (data) {
