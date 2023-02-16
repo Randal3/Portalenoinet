@@ -10,7 +10,7 @@ function VerificaCopertura() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/SimService",
+        url: "http://95.174.12.104:10674/SimService",
         data: JSON.stringify(formCopertura),
        
         success: function (data) {
