@@ -1,11 +1,41 @@
 
 function informazioniSim() {
 
-    var informazioniSim={
+    // definisci l'endpoint a cui fare la richiesta POST
+    const endpoint = "http://95.174.12.104:10674/SimService/Inquiry";
+
+    // definisci il payload da inviare (in formato JSON)
+    const payload = {
         "IdSim": document.getElementById("ICCID").value,
         "IdRecord": document.getElementById("IdRecord").value,
-    }
+    };
 
+    // definisci il token Bearer da utilizzare per l'autenticazione
+    const token = "08e20755-20e5-39c1-b9bc-d14835ac2f22";
+
+    // esegui la richiesta POST
+    $.ajax({
+    type: "POST",
+    url: endpoint,
+    headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+    },
+    data: JSON.stringify(payload), // trasforma il payload in formato JSON
+    success: function(response) {
+        console.log("La richiesta POST è stata eseguita con successo!");
+        console.log(response);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.error("La richiesta POST ha generato un errore:");
+        console.error(textStatus, errorThrown);
+    }
+    });
+
+}
+
+
+    /*
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -24,7 +54,7 @@ function informazioniSim() {
             }else{
                 document.getElementById("errore").style.display="block";
                 document.getElementById("erroreMsg").innerHTML=data.retMsg;
-            }*/
+            }//
         },
         error: function (e) {
         alert("Error!");
@@ -32,7 +62,7 @@ function informazioniSim() {
         }
     });
 }
-
+*/
 $( document ).ready(function() {
     console.log( "ready!" );
 
