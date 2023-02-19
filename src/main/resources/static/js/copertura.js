@@ -12,7 +12,9 @@ function VerificaCopertura() {
         contentType: "application/json",
         url: "http://95.174.12.104:10674/GisServerProxy/Coverage",
         data: JSON.stringify(formCopertura),
-       
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer 08e20755-20e5-39c1-b9bc-d14835ac2f22');
+        },
         success: function (data) {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
