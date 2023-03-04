@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.Portalenoinet.model.Credentials;
 import com.Portalenoinet.model.Sim;
 import com.Portalenoinet.model.Utente;
+import com.Portalenoinet.model.prova;
 import com.Portalenoinet.service.CredentialsService;
 import com.Portalenoinet.service.SimService;
 import com.Portalenoinet.service.UtenteService;
@@ -58,17 +59,21 @@ public class provaController {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
-    ObjectNode requestBody = objectMapper.createObjectNode();
-    requestBody.put("IdSim", "222380990002001");
-    requestBody.put("IdRecord", "");
+    JSONObject requestJson = new JSONObject();
+    requestJson.put("IdSim", "222380990002001");
+    requestJson.put("IdRecord", "");
 
-    HttpEntity<ObjectNode> requestEntity = new HttpEntity<ObjectNode>(requestBody, headers);
-    ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+    HttpEntity<String> requestEntity = new HttpEntity<>(requestJson.toString(), headers);
+
+    ResponseEntity<prova> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, prova.class);
+
+    HttpStatus httpStatus = responseEntity.getStatusCode();
+    prova responseBody = responseEntity.getBody();
 
     HttpStatus statusCode = responseEntity.getStatusCode();
     if (statusCode.is2xxSuccessful()) {
       // La richiesta è stata elaborata con successo dal server
-      String responseBody = responseEntity.getBody();
+      responseBody = responseEntity.getBody();
     } else {
       // Si è verificato un errore
       String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
