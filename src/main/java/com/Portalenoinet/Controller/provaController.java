@@ -62,18 +62,19 @@ public class provaController {
     requestBody.put("IdSim", "222380990002001");
     requestBody.put("IdRecord", "");
 
-    HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
+    HttpEntity<ObjectNode> requestEntity = new HttpEntity<ObjectNode>(requestBody, headers);
+    ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
-    // ResponseEntity<String> response = restTemplate.postForEntity(url, entity,
-    // String.class);
-    ResponseEntity<ObjectNode> response = restTemplate.exchange(url, HttpMethod.GET, entity,
-        new ParameterizedTypeReference<ObjectNode>() {
-        });
-
-    ObjectNode responseBody = response.getBody();
+    HttpStatus statusCode = responseEntity.getStatusCode();
+    if (statusCode.is2xxSuccessful()) {
+      // La richiesta è stata elaborata con successo dal server
+      String responseBody = responseEntity.getBody();
+    } else {
+      // Si è verificato un errore
+      String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
+    }
 
     System.out.println("SONO QUI");
-    System.out.println(responseBody);
 
     return prova;
   }
