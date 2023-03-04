@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,9 +64,13 @@ public class provaController {
 
     HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
-    ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+    // ResponseEntity<String> response = restTemplate.postForEntity(url, entity,
+    // String.class);
+    ResponseEntity<ObjectNode> response = restTemplate.exchange(url, HttpMethod.GET, entity,
+        new ParameterizedTypeReference<ObjectNode>() {
+        });
 
-    String responseBody = response.getBody();
+    ObjectNode responseBody = response.getBody();
 
     System.out.println("SONO QUI");
     System.out.println(responseBody);
