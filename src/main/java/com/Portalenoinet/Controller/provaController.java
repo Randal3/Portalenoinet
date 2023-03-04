@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.http.*;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @RestController
 public class provaController {
@@ -52,6 +53,7 @@ public class provaController {
     prova.put("AreaCode", "AREA51");
 
     RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
     String url = "http://95.174.12.104:10674/SimService/Inquiry";
 
@@ -59,16 +61,17 @@ public class provaController {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
-    JSONObject requestJson = new JSONObject();
+    ObjectNode requestJson = objectMapper.createObjectNode();
     requestJson.put("IdSim", "222380990002001");
     requestJson.put("IdRecord", "");
 
-    HttpEntity<String> requestEntity = new HttpEntity<>(requestJson.toString(), headers);
+    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(requestJson, headers);
 
-    ResponseEntity<prova> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, prova.class);
+    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
+        ObjectNode.class);
 
     HttpStatus httpStatus = responseEntity.getStatusCode();
-    prova responseBody = responseEntity.getBody();
+    ObjectNode responseBody = responseEntity.getBody();
 
     HttpStatus statusCode = responseEntity.getStatusCode();
     if (statusCode.is2xxSuccessful()) {
