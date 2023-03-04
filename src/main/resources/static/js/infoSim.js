@@ -16,12 +16,8 @@ function informazioniSim() {
     // esegui la richiesta POST
     $.ajax({
     type: "POST",
-    url: endpoint,
-    headers: {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json"
-    },
-    data: JSON.stringify(payload), // trasforma il payload in formato JSON
+    url: "/SimService",
+    data: JSON.stringify(), // trasforma il payload in formato JSON
     success: function(response) {
         console.log("La richiesta POST è stata eseguita con successo!");
         console.log(response);

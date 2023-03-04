@@ -3,6 +3,7 @@ package com.Portalenoinet.Controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.Portalenoinet.model.Credentials;
 import com.Portalenoinet.model.Sim;
@@ -20,86 +22,109 @@ import com.Portalenoinet.service.UtenteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import org.springframework.http.*;
+
 @RestController
 public class provaController {
-    
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @Autowired
-    private CredentialsService credentialservice;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    @Autowired
-    private SimService simservice;
+  @Autowired
+  private CredentialsService credentialservice;
 
-    @Autowired
-    private UtenteService utenteservice;
+  @Autowired
+  private SimService simservice;
 
-    @PostMapping("/SimService")
-    public ObjectNode simService(@RequestBody ObjectNode node) {
+  @Autowired
+  private UtenteService utenteservice;
 
-        ObjectNode prova = objectMapper.createObjectNode();
+  @PostMapping("/SimService")
+  public ObjectNode simService() {
+    System.out.println("SONO SOPRA");
 
-        prova.put( "retCode",0);
-        prova.put( "retMsg", "Errore associato ai parametri del Vas");
-        prova.put( "AreaCode","AREA51");
+    ObjectNode prova = objectMapper.createObjectNode();
 
-      return prova;
-    }
+    prova.put("retCode", 0);
+    prova.put("retMsg", "Errore associato ai parametri del Vas");
+    prova.put("AreaCode", "AREA51");
 
-    @PostMapping("/salvataggioSim")
-    public void salvataggioSim(@RequestBody ObjectNode node) {
+    RestTemplate restTemplate = new RestTemplate();
 
-      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
-      Utente user = credentials.getUser();
+    String url = "http://95.174.12.104:10674/SimService/Inquiry";
 
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
-      List<Sim> elencoSim = simservice.all();
-      String seriale = node.get("IdSim").asText();
-      boolean tmp = false;
-      for(int i=0; i<elencoSim.size();i++){
-          if( elencoSim.get(i).getSeriale().equals(seriale)){
-            tmp = true;
-          }
-      }
+    ObjectNode requestBody = objectMapper.createObjectNode();
+    requestBody.put("IdSim", "222380990002001");
+    requestBody.put("IdRecord", "");
 
-      if(tmp){
-        //UPDATE SIM
-        Sim simAttuale = simservice.getSim(seriale);
+    HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
-        simAttuale.setStato(node.get("State").asText());
+    ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
 
-        simservice.save(simAttuale);
-      }else{
-        //INSERIMENTO NUOVA SIM
-        Sim nuovaSim = new Sim();
-        nuovaSim.setSeriale(node.get("IdSim").asText());
-        nuovaSim.setTipoServizio(node.get("SrvType").asText());
-        nuovaSim.setIdRecord(node.get("IdRecord").asText());
-        nuovaSim.setStato(node.get("State").asText());
-        nuovaSim.setAreaCode(node.get("AreaCode").asText());
-        nuovaSim.setAreaCode(node.get("AreaCode").asText());
-        nuovaSim.setOperatore(user);
-        nuovaSim.setData(LocalDate.now());
+    String responseBody = response.getBody();
 
-        simservice.save(nuovaSim);
+    System.out.println("SONO QUI");
+    System.out.println(responseBody);
+
+    return prova;
+  }
+
+  @PostMapping("/salvataggioSim")
+  public void salvataggioSim(@RequestBody ObjectNode node) {
+
+    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Credentials credentials = credentialservice.getCredentials(userDetails.getUsername());
+    Utente user = credentials.getUser();
+
+    List<Sim> elencoSim = simservice.all();
+    String seriale = node.get("IdSim").asText();
+    boolean tmp = false;
+    for (int i = 0; i < elencoSim.size(); i++) {
+      if (elencoSim.get(i).getSeriale().equals(seriale)) {
+        tmp = true;
       }
     }
 
-    @GetMapping("/getAllSim")
-    public List<Sim> getAllSim() {
-      
-      List<Sim> data = simservice.all();
+    if (tmp) {
+      // UPDATE SIM
+      Sim simAttuale = simservice.getSim(seriale);
 
-      return data;
+      simAttuale.setStato(node.get("State").asText());
+
+      simservice.save(simAttuale);
+    } else {
+      // INSERIMENTO NUOVA SIM
+      Sim nuovaSim = new Sim();
+      nuovaSim.setSeriale(node.get("IdSim").asText());
+      nuovaSim.setTipoServizio(node.get("SrvType").asText());
+      nuovaSim.setIdRecord(node.get("IdRecord").asText());
+      nuovaSim.setStato(node.get("State").asText());
+      nuovaSim.setAreaCode(node.get("AreaCode").asText());
+      nuovaSim.setAreaCode(node.get("AreaCode").asText());
+      nuovaSim.setOperatore(user);
+      nuovaSim.setData(LocalDate.now());
+
+      simservice.save(nuovaSim);
     }
+  }
 
-    @GetMapping("/getAllOperatori")
-    public List<Utente> getAllOperatori() {
+  @GetMapping("/getAllSim")
+  public List<Sim> getAllSim() {
 
-      List<Utente> utente = utenteservice.all();
-      
-      return utente;
-    }
+    List<Sim> data = simservice.all();
+
+    return data;
+  }
+
+  @GetMapping("/getAllOperatori")
+  public List<Utente> getAllOperatori() {
+
+    List<Utente> utente = utenteservice.all();
+
+    return utente;
+  }
 }
