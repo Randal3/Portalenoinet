@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import com.Portalenoinet.model.Credentials;
 import com.Portalenoinet.model.Sim;
 import com.Portalenoinet.model.Utente;
-import com.Portalenoinet.model.infoSim;
 import com.Portalenoinet.service.CredentialsService;
 import com.Portalenoinet.service.SimService;
 import com.Portalenoinet.service.UtenteService;
@@ -56,17 +55,11 @@ public class provaController {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
-    // ObjectNode requestJson = objectMapper.createObjectNode();
-    // requestJson.put("IdSim", "222380990002001");
-    // requestJson.put("IdRecord", "");
-
     HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
 
-    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url,
-        HttpMethod.POST, requestEntity,
+    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
         ObjectNode.class);
 
-    HttpStatus httpStatus = responseEntity.getStatusCode();
     ObjectNode responseBody = responseEntity.getBody();
 
     System.out.println("SONO QUI " + responseBody);

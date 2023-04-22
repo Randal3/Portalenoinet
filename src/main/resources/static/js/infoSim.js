@@ -16,16 +16,16 @@ function informazioniSim() {
     success: function(data) {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
-                document.getElementById("formRichiesta").style.display="block";
-                document.getElementById("stato").value=data.State;
-                document.getElementById("type").value=data.SrvType;
-                document.getElementById("classe").value=data.SrvClass;
-                document.getElementById("richiestaStato").value=data.ReqState;
-                document.getElementById("reqDate").value=data.ReqDate;
-                document.getElementById("idSim").value=data.Imsi;
+                document.getElementById("formRisposta").style.display="block";
+                document.getElementById("stato").innerHTML=data.State;
+                document.getElementById("type").innerHTML=data.SrvType;
+                document.getElementById("classe").innerHTML=data.SrvClass;
+                document.getElementById("richiestaStato").innerHTML=data.ReqState;
+                document.getElementById("reqDate").innerHTML=data.ReqDate;
+                document.getElementById("idSim").innerHTML=data.Imsi;
             }else{
                 document.getElementById("errore").style.display="block";
-                document.getElementById("erroreMsg").value=data.retMsg;
+                document.getElementById("erroreMsg").innerHTML=data.retMsg;
             }
     },
     error: function(textStatus, errorThrown) {
