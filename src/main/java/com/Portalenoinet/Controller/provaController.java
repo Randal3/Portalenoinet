@@ -65,7 +65,7 @@ public class provaController {
 
     System.out.println("SONO QUI " + responseBody);
 
-    return responseBody;
+    return null;
   }
 
   @PostMapping("/salvataggioSim")
