@@ -42,7 +42,8 @@ public class provaController {
   private UtenteService utenteservice;
 
   @PostMapping("/SimService")
-  public ObjectNode simService(@RequestBody ObjectNode payload) {
+  @ResponseBody
+  public ObjectNode simService(@RequestBody infoSim payload) {
 
     System.out.println("SONO QUI " + payload);
 
@@ -59,16 +60,18 @@ public class provaController {
     // requestJson.put("IdSim", "222380990002001");
     // requestJson.put("IdRecord", "");
 
-    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
-
-    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
-        ObjectNode.class);
-
-    HttpStatus httpStatus = responseEntity.getStatusCode();
-    ObjectNode responseBody = responseEntity.getBody();
-
-    System.out.println("SONO QUI " + responseBody);
-
+    /*
+     * HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
+     * 
+     * ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url,
+     * HttpMethod.POST, requestEntity,
+     * ObjectNode.class);
+     * 
+     * HttpStatus httpStatus = responseEntity.getStatusCode();
+     * ObjectNode responseBody = responseEntity.getBody();
+     * 
+     * System.out.println("SONO QUI " + responseBody);
+     */
     return null;
   }
 
