@@ -10,11 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import com.Portalenoinet.model.Credentials;
 import com.Portalenoinet.model.Sim;
 import com.Portalenoinet.model.Utente;
+import com.Portalenoinet.model.infoSim;
 import com.Portalenoinet.service.CredentialsService;
 import com.Portalenoinet.service.SimService;
 import com.Portalenoinet.service.UtenteService;
@@ -40,7 +42,9 @@ public class provaController {
   private UtenteService utenteservice;
 
   @PostMapping("/SimService")
-  public ObjectNode simService(ObjectNode payload) {
+  public ObjectNode simService(@RequestBody ObjectNode payload) {
+
+    System.out.println("SONO QUI " + payload);
 
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
