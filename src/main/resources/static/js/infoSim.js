@@ -18,7 +18,7 @@ function informazioniSim() {
     type: "POST",
     url: "/SimService",
     data: JSON.stringify(payload), // trasforma il payload in formato JSON
-    success: function(response) {
+    success: function(data) {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
                 document.getElementById("formRichiesta").style.display="block";
@@ -28,7 +28,7 @@ function informazioniSim() {
                 document.getElementById("erroreMsg").innerHTML=data.retMsg;
             }
     },
-    error: function(jqXHR, textStatus, errorThrown) {
+    error: function(textStatus, errorThrown) {
         console.error("La richiesta POST ha generato un errore:");
         console.error(textStatus, errorThrown);
     }

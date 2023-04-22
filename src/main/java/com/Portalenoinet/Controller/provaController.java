@@ -63,6 +63,8 @@ public class provaController {
     HttpStatus httpStatus = responseEntity.getStatusCode();
     ObjectNode responseBody = responseEntity.getBody();
 
+    System.out.println("SONO QUI " + responseBody);
+
     return responseBody;
   }
 
