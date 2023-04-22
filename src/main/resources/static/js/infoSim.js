@@ -1,22 +1,17 @@
 
 function informazioniSim() {
 
-    // definisci l'endpoint a cui fare la richiesta POST
-    const endpoint = "http://95.174.12.104:10674/SimService/Inquiry";
-
     // definisci il payload da inviare (in formato JSON)
     const payload = {
         "IdSim": document.getElementById("ICCID").value,
         "IdRecord": document.getElementById("IdRecord").value,
     };
 
-    // definisci il token Bearer da utilizzare per l'autenticazione
-    const token = "08e20755-20e5-39c1-b9bc-d14835ac2f22";
-
     // esegui la richiesta POST
     $.ajax({
     type: "POST",
     url: "/SimService",
+    contentType: "application/json",
     data: JSON.stringify(payload), // trasforma il payload in formato JSON
     success: function(data) {
         console.log("SUCCESS : ", data);
