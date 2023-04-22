@@ -47,9 +47,9 @@ function informazioniSim() {
                 document.getElementById("erroreMsg").innerHTML=data.retMsg;
             }
     },
-    error: function(textStatus, errorThrown) {
-        console.error("La richiesta POST ha generato un errore:");
-        console.error(textStatus, errorThrown);
+    error: function( data ,textStatus, errorThrown) {
+        console.error("La richiesta POST ha generato un errore:" , data);
+        console.error(data, textStatus, errorThrown);
     }
     });
 
