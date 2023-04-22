@@ -54,14 +54,18 @@ public class provaController {
     headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
     HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
-
+    System.out.println("PRIMA RICHIESTA ");
     ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
         ObjectNode.class);
-
+    System.out.println("DOPO RICHIESTA ");
     HttpStatus statusCode = responseEntity.getStatusCode();
     if (statusCode.is2xxSuccessful()) {
       // La richiesta è stata elaborata con successo dal server
       ObjectNode responseBody = responseEntity.getBody();
+      if (responseBody.get("RetCode").has(203)) {
+
+      }
+      System.out.println("FINE RISPOSTA");
       return responseBody;
     } else {
       // Si è verificato un errore
