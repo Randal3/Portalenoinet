@@ -17,7 +17,26 @@ function informazioniSim() {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
                 document.getElementById("formRisposta").style.display="block";
-                document.getElementById("stato").innerHTML=data.State;
+                switch(data.State){
+                    case(0):
+                        document.getElementById("stato").innerHTML = "Loaded"
+                    break;
+                    case(1):
+                        document.getElementById("stato").innerHTML = "Pre-Attivazione"
+                    break;
+                    case(2):
+                        document.getElementById("stato").innerHTML = "Attiva"
+                    break;
+                    case(3):
+                        document.getElementById("stato").innerHTML = "Cessata"
+                    break;
+                    case(4):
+                        document.getElementById("stato").innerHTML = "KO Installativo"
+                    break;
+                    case(20):
+                        document.getElementById("stato").innerHTML = "Sim Sospesa"
+                    break;
+                }
                 document.getElementById("type").innerHTML=data.SrvType;
                 document.getElementById("classe").innerHTML=data.SrvClass;
                 document.getElementById("richiestaStato").innerHTML=data.ReqState;

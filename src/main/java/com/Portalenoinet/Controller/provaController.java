@@ -44,8 +44,6 @@ public class provaController {
   @ResponseBody
   public ObjectNode simService(@RequestBody ObjectNode payload) {
 
-    System.out.println("SONO SOPRA " + payload);
-
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
@@ -60,11 +58,19 @@ public class provaController {
     ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
         ObjectNode.class);
 
-    ObjectNode responseBody = responseEntity.getBody();
+    HttpStatus statusCode = responseEntity.getStatusCode();
+    if (statusCode.is2xxSuccessful()) {
+      // La richiesta è stata elaborata con successo dal server
+      ObjectNode responseBody = responseEntity.getBody();
+      return responseBody;
+    } else {
+      // Si è verificato un errore
+      String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
+    }
 
-    System.out.println("SONO QUI " + responseBody);
+    System.out.println("SONO QUI ");
 
-    return responseBody;
+    return null;
   }
 
   @PostMapping("/salvataggioSim")
