@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import com.Portalenoinet.model.Credentials;
 import com.Portalenoinet.model.Sim;
 import com.Portalenoinet.model.Utente;
-import com.Portalenoinet.model.prova;
 import com.Portalenoinet.service.CredentialsService;
 import com.Portalenoinet.service.SimService;
 import com.Portalenoinet.service.UtenteService;
@@ -43,29 +40,22 @@ public class provaController {
   private UtenteService utenteservice;
 
   @PostMapping("/SimService")
-  public ObjectNode simService() {
-    System.out.println("SONO SOPRA");
-
-    ObjectNode prova = objectMapper.createObjectNode();
-
-    prova.put("retCode", 0);
-    prova.put("retMsg", "Errore associato ai parametri del Vas");
-    prova.put("AreaCode", "AREA51");
+  public ObjectNode simService(ObjectNode payload) {
 
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-    String url = "http://95.174.12.104:10674/SimService/Inquiry";
+    String url = "http://95.174.12.104:10674/api/SimService/Inquiry";
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
 
-    ObjectNode requestJson = objectMapper.createObjectNode();
-    requestJson.put("IdSim", "222380990002001");
-    requestJson.put("IdRecord", "");
+    // ObjectNode requestJson = objectMapper.createObjectNode();
+    // requestJson.put("IdSim", "222380990002001");
+    // requestJson.put("IdRecord", "");
 
-    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(requestJson, headers);
+    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
 
     ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
         ObjectNode.class);
@@ -73,18 +63,7 @@ public class provaController {
     HttpStatus httpStatus = responseEntity.getStatusCode();
     ObjectNode responseBody = responseEntity.getBody();
 
-    HttpStatus statusCode = responseEntity.getStatusCode();
-    if (statusCode.is2xxSuccessful()) {
-      // La richiesta è stata elaborata con successo dal server
-      responseBody = responseEntity.getBody();
-    } else {
-      // Si è verificato un errore
-      String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
-    }
-
-    System.out.println("SONO QUI");
-
-    return prova;
+    return responseBody;
   }
 
   @PostMapping("/salvataggioSim")

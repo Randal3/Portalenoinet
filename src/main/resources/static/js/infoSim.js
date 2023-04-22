@@ -17,10 +17,16 @@ function informazioniSim() {
     $.ajax({
     type: "POST",
     url: "/SimService",
-    data: JSON.stringify(), // trasforma il payload in formato JSON
+    data: JSON.stringify(payload), // trasforma il payload in formato JSON
     success: function(response) {
-        console.log("La richiesta POST è stata eseguita con successo!");
-        console.log(response);
+        console.log("SUCCESS : ", data);
+            if(data.retCode == 0){
+                document.getElementById("formRichiesta").style.display="block";
+                document.getElementById("payload").innerHTML=data;
+            }else{
+                document.getElementById("errore").style.display="block";
+                document.getElementById("erroreMsg").innerHTML=data.retMsg;
+            }
     },
     error: function(jqXHR, textStatus, errorThrown) {
         console.error("La richiesta POST ha generato un errore:");
