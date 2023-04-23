@@ -45,7 +45,7 @@ function salvataggioSim() {
 
 function AttivazioneSim() {
 
-    var gestioneSim={
+    var payload={
         "IdSim": document.getElementById("ICCID").value,
         "IdRecord": document.getElementById("IdRecord").value,
         "State": document.querySelector('.form-check-input:checked').value,
@@ -56,9 +56,8 @@ function AttivazioneSim() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/SimService",
-        data: JSON.stringify(gestioneSim),
-        //dataType: "json",
+        url: "/GestioneSim",
+        data: JSON.stringify(payload),
         success: function (data) {
         console.log("SUCCESS : ", data);
             if(data.retCode == 0){
@@ -68,7 +67,7 @@ function AttivazioneSim() {
                 //}else{
                 //    document.getElementById("nonCoperto").style.display="block";
                 //}
-                salvataggioSim();
+                //salvataggioSim();
             }else{
                 document.getElementById("errore").style.display="block";
                 document.getElementById("erroreMsg").innerHTML=data.retMsg;

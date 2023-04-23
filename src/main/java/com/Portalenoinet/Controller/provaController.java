@@ -40,6 +40,39 @@ public class provaController {
   @Autowired
   private UtenteService utenteservice;
 
+  @PostMapping("/RichiestaCopertura")
+  @ResponseBody
+  public ObjectNode richiestaCopertura(@RequestBody ObjectNode payload) {
+
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+    String url = "http://95.174.12.104:10674/api/GisServerProxy/Coverage";
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
+
+    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
+
+    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
+        ObjectNode.class);
+
+    HttpStatus statusCode = responseEntity.getStatusCode();
+    if (statusCode.is2xxSuccessful()) {
+      // La richiesta è stata elaborata con successo dal server
+      ObjectNode responseBody = responseEntity.getBody();
+      System.out.println("FINE RISPOSTA");
+      return responseBody;
+    } else {
+      // Si è verificato un errore
+      String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
+    }
+
+    System.out.println("SONO QUI ");
+    return null;
+  }
+
   @PostMapping("/SimService")
   @ResponseBody
   public ObjectNode simService(@RequestBody ObjectNode payload) {
@@ -72,7 +105,41 @@ public class provaController {
     }
 
     System.out.println("SONO QUI ");
+    return null;
+  }
 
+  @PostMapping("/GestioneSim")
+  @ResponseBody
+  public ObjectNode GestioneSim(@RequestBody ObjectNode payload) {
+
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+    String url = "http://95.174.12.104:10674/api/SimService/Inquiry";
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setBearerAuth("08e20755-20e5-39c1-b9bc-d14835ac2f22");
+
+    HttpEntity<ObjectNode> requestEntity = new HttpEntity<>(payload, headers);
+    System.out.println("PRIMA RICHIESTA ");
+
+    ResponseEntity<ObjectNode> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity,
+        ObjectNode.class);
+
+    System.out.println("DOPO RICHIESTA ");
+    HttpStatus statusCode = responseEntity.getStatusCode();
+    if (statusCode.is2xxSuccessful()) {
+      // La richiesta è stata elaborata con successo dal server
+      ObjectNode responseBody = responseEntity.getBody();
+      System.out.println("FINE RISPOSTA");
+      return responseBody;
+    } else {
+      // Si è verificato un errore
+      String errorMessage = "Errore durante la richiesta al server. Codice di stato HTTP: " + statusCode.value();
+    }
+
+    System.out.println("SONO QUI ");
     return null;
   }
 
